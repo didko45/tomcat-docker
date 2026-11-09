@@ -1,0 +1,25 @@
+services:
+  app:
+    build: .
+    image: tomcat-docker:0.3
+    environment:
+      APP_VERSION: "0.3"
+    expose:
+      - "8080"
+    volumes:
+      - tomcat-logs:/usr/local/tomcat/logs
+    restart: unless-stopped
+
+  web:
+    image: httpd:2.4
+    ports:
+      - "80:80"
+    volumes:
+      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  tomcat-logs:
