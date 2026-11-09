@@ -13,7 +13,7 @@ FROM tomcat:10.1-jre17
 RUN apt-get update \
  && apt-get install -y --no-install-recommends curl \
  && rm -rf /var/lib/apt/lists/* \
- && rm -rf /usr/local/tomcat/webapps/* \
+ && rm -rf /usr/local/tomcat/webapps/* /usr/local/tomcat/webapps.dist \
  && groupadd --system --gid 10001 tomcat \
  && useradd --system --uid 10001 --gid tomcat --home-dir /usr/local/tomcat --shell /usr/sbin/nologin tomcat \
  && chown -R tomcat:tomcat /usr/local/tomcat/logs /usr/local/tomcat/temp /usr/local/tomcat/work /usr/local/tomcat/webapps
@@ -23,8 +23,8 @@ COPY --from=build --chown=tomcat:tomcat /src/target/ROOT.war /usr/local/tomcat/w
 # JVM sizes the heap from the container's memory limit
 ENV CATALINA_OPTS="-XX:MaxRAMPercentage=75.0"
 
-USER tomcat
+USER 10001:10001
 EXPOSE 8080
 
 HEALTHCHECK --interval=15s --timeout=3s --start-period=30s --retries=3 \
-  CMD curl -fsS http://localhost:8080/health || exit 1
+  CMD ["curl", "-fsS", "http://localhost:8080/health"]

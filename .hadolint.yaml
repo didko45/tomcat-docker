@@ -1,0 +1,4 @@
+ignored:
+  # Ubuntu archives drop old package versions after security updates,
+  # so pinned apt versions break rebuilds. Vulnerabilities are caught by Trivy instead.
+  - DL3008
