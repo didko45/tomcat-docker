@@ -1,5 +1,7 @@
 # tomcat-docker
 
+[![CI](https://github.com/didko45/tomcat-docker/actions/workflows/ci.yml/badge.svg)](https://github.com/didko45/tomcat-docker/actions/workflows/ci.yml)
+
 A Java web application on Apache Tomcat, packaged with a multi-stage Docker build and served behind an Apache HTTP Server reverse proxy with Docker Compose.
 
 ## Architecture
