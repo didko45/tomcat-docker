@@ -7,7 +7,7 @@ COPY src ./src
 RUN mvn -q -B package
 
 # ---- Stage 2: runtime on Tomcat (JRE only) ----
-FROM tomcat:10.1-jre17
+FROM tomcat:11.0-jre17
 
 # curl for the health check; non-root user with write access only where Tomcat needs it
 RUN apt-get update \
